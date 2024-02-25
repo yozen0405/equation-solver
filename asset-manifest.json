@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/equation-solver/static/css/main.5a7cac1b.css",
+    "main.js": "/equation-solver/static/js/main.bfcd2f4d.js",
+    "static/media/linear-icon.png": "/equation-solver/static/media/linear-icon.99014eb34e2b043180f6.png",
+    "index.html": "/equation-solver/index.html",
+    "main.5a7cac1b.css.map": "/equation-solver/static/css/main.5a7cac1b.css.map",
+    "main.bfcd2f4d.js.map": "/equation-solver/static/js/main.bfcd2f4d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5a7cac1b.css",
+    "static/js/main.bfcd2f4d.js"
+  ]
+}
