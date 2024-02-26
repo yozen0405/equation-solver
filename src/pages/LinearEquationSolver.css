@@ -1,5 +1,5 @@
 .linear-equation-solver {
-    width:  500px;
+    width: 500px;
     margin: 0 auto;
     margin-top: 10px;
     padding: 20px;
@@ -21,11 +21,13 @@
 }
 
 .input-group input {
-    flex: 1; /* 将输入框填充剩余空间 */
+    flex: 1;
+    /* 将输入框填充剩余空间 */
     padding: 6px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    font-size: 18px; /* 设置输入字体大小 */
+    font-size: 18px;
+    /* 设置输入字体大小 */
 }
 
 .button-container {
@@ -74,3 +76,36 @@
     margin: 5px;
 }
 
+.fraction {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    letter-spacing: 0.001em;
+    text-align: center;
+    font-size: 16px;
+}
+
+.fraction>span {
+    display: block;
+    padding: 0.1em;
+}
+
+.fraction span.fdn {
+    border-top: thin solid black;
+}
+
+.fraction span.bar {
+    display: none;
+}
+
+.sqrt {
+    display: inline-block;
+}
+
+.overline {
+    text-decoration: overline;
+}
+
+.overline:hover {
+    color: black;
+}
