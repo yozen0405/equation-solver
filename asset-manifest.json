@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/equation-solver/static/css/main.5a7cac1b.css",
-    "main.js": "/equation-solver/static/js/main.5eea286e.js",
+    "main.js": "/equation-solver/static/js/main.da4350fb.js",
     "static/media/linear-icon.png": "/equation-solver/static/media/linear-icon.99014eb34e2b043180f6.png",
     "index.html": "/equation-solver/index.html",
     "main.5a7cac1b.css.map": "/equation-solver/static/css/main.5a7cac1b.css.map",
-    "main.5eea286e.js.map": "/equation-solver/static/js/main.5eea286e.js.map"
+    "main.da4350fb.js.map": "/equation-solver/static/js/main.da4350fb.js.map"
   },
   "entrypoints": [
     "static/css/main.5a7cac1b.css",
-    "static/js/main.5eea286e.js"
+    "static/js/main.da4350fb.js"
   ]
 }
