@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
+import { HashRouter } from 'react-router-dom';
 import Home from './pages/Home'
 import About from './pages/About'
 import LinearEquationSolver from './pages/LinearEquationSolver.js'
@@ -9,7 +10,7 @@ import NoPage from "./pages/NoPage"
 export default function App() {
   return (
     <div>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
@@ -18,7 +19,7 @@ export default function App() {
           <Route path="/QuadraticEquationSolver" element={<QuadraticEquationSolver />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   )
 }
