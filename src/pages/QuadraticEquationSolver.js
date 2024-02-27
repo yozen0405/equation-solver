@@ -15,6 +15,7 @@ function QuadraticEquationSolver() {
   const [positiveFactor1, setPositiveFactor1] = useState('');
   const [negativeFactor0, setNegativeFactor0] = useState('');
   const [negativeFactor1, setNegativeFactor1] = useState('');
+  const [submitted, setSubmitted] = useState(false);
   const [tmp, setTmp] = useState('');
   const [tmp2, setTmp2] = useState('');
 
@@ -73,6 +74,7 @@ function QuadraticEquationSolver() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitted(true);
 
     const discriminant = b * b - 4 * a * c;
     const numB = (a < 0) ? -parseInt(b) : parseInt(b);
@@ -90,7 +92,7 @@ function QuadraticEquationSolver() {
       setResult({ x1, x2 });
     } else if (discriminant === 0) {
       const x = -numB / (2 * numA);
-      setResult({ x });
+      setResult({ x1 : x });
     } else {
       setResult('No real roots');
       return;
@@ -98,10 +100,11 @@ function QuadraticEquationSolver() {
     const [outD, sqrtD] = findBiggestFactor(discriminant);
     const [twoTimesA, negativeBVal, newoutD] = findBiggestGcd(2 * numA, -numB, outD);
 
-    const [newp0, newp1] = findBiggestGcdForPairs(negativeBVal + newoutD, twoTimesA);
+    const tmpNewOutD = (sqrtD === 0) ? 0 : newoutD;
+    const [newp0, newp1] = findBiggestGcdForPairs(negativeBVal + tmpNewOutD, twoTimesA);
     setPositiveFactor0(newp0);
     setPositiveFactor1(newp1);
-    const [newn0, newn1] = findBiggestGcdForPairs(negativeBVal - newoutD, twoTimesA);
+    const [newn0, newn1] = findBiggestGcdForPairs(negativeBVal - tmpNewOutD, twoTimesA);
     setNegativeFactor0(newn0);
     setNegativeFactor1(newn1);
 
@@ -109,10 +112,6 @@ function QuadraticEquationSolver() {
     setNegativeB(negativeBVal);
     setDiscriminant(newoutD);
     setSqrtDiscriminant(sqrtD);
-    if (parseInt(sqrtD) === 0 || parseInt(newoutD) === 0) {
-      setSqrtDiscriminant(0);
-      setDiscriminant(0);
-    }
   };
 
   return (
@@ -136,15 +135,15 @@ function QuadraticEquationSolver() {
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label>a:</label>
-            <input type="number" value={a} onChange={(e) => handleInputChange(e, setA)} />
+            <input type="text" value={a} onChange={(e) => handleInputChange(e, setA)} />
           </div>
           <div className="input-group">
             <label>b:</label>
-            <input type="number" value={b} onChange={(e) => handleInputChange(e, setB)} />
+            <input type="text" value={b} onChange={(e) => handleInputChange(e, setB)} />
           </div>
           <div className="input-group">
             <label>c:</label>
-            <input type="number" value={c} onChange={(e) => handleInputChange(e, setC)} />
+            <input type="text" value={c} onChange={(e) => handleInputChange(e, setC)} />
           </div>
           <div className="button-container">
             <button type="submit">Calculate</button>
@@ -165,11 +164,10 @@ function QuadraticEquationSolver() {
             <p>{result}</p>
           </div>
         )}
-        {result && typeof result === 'object' ? (
-          <div className="intermediate-values">
+        {(submitted && result && typeof result === 'object') ? (
+          <div className="solution">
             <h3>Intermediate Values:</h3>
-            <p>Solution: &nbsp;
-              {sqrtDiscriminant === 1 ? (
+              {sqrtDiscriminant === 1 || sqrtDiscriminant === 0 ? (
                 <span>
                 <div style={{ display: 'inline-block' }}>
                   {positiveFactor1 === 1 || positiveFactor1 === 0 ?
@@ -184,51 +182,50 @@ function QuadraticEquationSolver() {
                       </div>
                   )}
                 </div>
-                <div style={{ display: 'inline-block' }}>
-                  <p>,</p>
-                </div>
-                <div style={{ display: 'inline-block' }}>
-                  {negativeFactor1 === 1 || negativeFactor1 === 0 ?
-                    <p>{negativeFactor0}</p> : (
-                      <div class="fraction">
-                        <span class="fup">
-                          {negativeFactor0}
-                        </span>
-                        <span class="fdn">
-                          {negativeFactor1}
-                        </span>
-                      </div>
-                  )}
-                </div>
+                {result.x2 ? (
+                  <span>
+                    <div style={{ display: 'inline-block' }}>
+                      <p>&nbsp; or&nbsp; </p>
+                    </div>
+                    <div style={{ display: 'inline-block' }}>
+                      {negativeFactor1 === 1 || negativeFactor1 === 0 ?
+                        <p>{negativeFactor0}</p> : (
+                          <div class="fraction">
+                            <span class="fup">
+                              {negativeFactor0}
+                            </span>
+                            <span class="fdn">
+                              {negativeFactor1}
+                            </span>
+                          </div>
+                      )}
+                    </div>
+                  </span>
+                ) :  null
+              }
               </span>              
               ) : (
                 <div class="fraction">
-                  {Discriminant !== 0 && sqrtDiscriminant !== 0 ? (
-                    <span class="fup">
-                      {negativeB === 0 ?
-                        null :
-                        <span>{negativeB}</span>
-                      }
-                      &nbsp;±&nbsp;
-                      {Discriminant === 1 ?
-                        null :
-                        <span>{Discriminant}</span>
-                      }
-                      {sqrtDiscriminant === 1 ?
-                        null : (
-                          <div className="sqrt">
-                            &radic;
-                            <span className="overline">
-                              &nbsp;{sqrtDiscriminant}&nbsp;
-                            </span>
-                          </div>
-                        )}
-                    </span>
-                  ) : (
-                    <span class="fup">
-                      {negativeB}
-                    </span>
-                  )}
+                  <span class="fup">
+                    {negativeB === 0 ?
+                      null :
+                      <span>{negativeB}</span>
+                    }
+                    &nbsp;±&nbsp;
+                    {Discriminant === 1 ?
+                      null :
+                      <span>{Discriminant}</span>
+                    }
+                    {sqrtDiscriminant === 1 ?
+                      null : (
+                        <div className="sqrt">
+                          &radic;
+                          <span className="overline">
+                            &nbsp;{sqrtDiscriminant}&nbsp;
+                          </span>
+                        </div>
+                      )}
+                  </span>
                   {parseInt(twoA) !== 1 ?
                     <span className="bar">/</span> : null
                   }
@@ -237,7 +234,6 @@ function QuadraticEquationSolver() {
                   }
                 </div>
               )}
-            </p>
           </div>) : null
         }
       </div>
